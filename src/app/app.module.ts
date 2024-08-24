@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CollaboratorFormComponent } from './components/collaborator-form/collaborator-form.component';
 import { CollaboratorListComponent } from './components/collaborator-list/collaborator-list.component';
+import { CollaboratorEditComponent } from './components/collaborator-edit/collaborator-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CollaboratorFormComponent,
     CollaboratorListComponent,
+    CollaboratorEditComponent,
   ],
   imports: [
     BrowserModule,

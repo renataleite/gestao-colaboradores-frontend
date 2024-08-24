@@ -18,4 +18,12 @@ export class CollaboratorService {
   getCollaborators(): Observable<Collaborator[]> {
     return this.http.get<Collaborator[]>(this.apiUrl);
   }
+
+  getCollaboratorById(id: number): Observable<Collaborator> {
+    return this.http.get<Collaborator>(`${this.apiUrl}/${id}`);
+  }
+
+  updateCollaborator(id: number, collaborator: Collaborator): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}`, collaborator);
+  }
 }
