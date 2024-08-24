@@ -26,4 +26,8 @@ export class CollaboratorService {
   updateCollaborator(id: number, collaborator: Collaborator): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}`, collaborator);
   }
+  
+  deleteCollaborator(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }
