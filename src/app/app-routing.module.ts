@@ -11,7 +11,6 @@ const routes: Routes = [
   { path: 'cadastrar-colaboradores', component: CollaboratorFormComponent },
   { path: 'editar-colaboradores/:id', component: CollaboratorEditComponent },
   { path: 'cadastrar-registro-ponto', component: AttendanceFormComponent },
-  { path: 'editar-registro-ponto/:id', component: AttendanceFormComponent }
 ];
 
 @NgModule({

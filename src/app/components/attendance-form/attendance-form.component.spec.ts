@@ -13,7 +13,7 @@ describe('AttendanceFormComponent', () => {
 
   beforeEach(async () => {
     // Cria um mock do serviço
-    mockAttendanceService = jasmine.createSpyObj('AttendanceService', ['getAttendance', 'createAttendance', 'updateAttendance']);
+    mockAttendanceService = jasmine.createSpyObj('AttendanceService', ['createAttendance']);
 
     await TestBed.configureTestingModule({
       imports: [
@@ -32,15 +32,6 @@ describe('AttendanceFormComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AttendanceFormComponent);
     component = fixture.componentInstance;
-
-    // Mock da resposta do getAttendance
-    mockAttendanceService.getAttendance.and.returnValue(of({
-      id: 1,
-      collaboratorId: 1,
-      checkInTime: new Date('2024-08-24T08:00:00'),
-      checkOutTime: new Date('2024-08-24T17:00:00')
-    }));
-
     fixture.detectChanges();
   });
 
@@ -56,17 +47,7 @@ describe('AttendanceFormComponent', () => {
     });
   });
 
-  it('deve carregar os dados de atendimento ao editar', () => {
-    component.attendanceId = 1;
-    component.ngOnInit();
-
-    expect(component.attendanceForm.value.collaboratorId).toBe(1);
-    expect(component.attendanceForm.value.checkInTime).toBe('2024-08-24T08:00');
-    expect(component.attendanceForm.value.checkOutTime).toBe('2024-08-24T17:00');
-  });
-
-  it('deve chamar o serviço de criação ao enviar um novo formulário', () => {
-    spyOn(component, 'onSubmit');
+  it('deve chamar o serviço de criação ao enviar o formulário', () => {
     component.attendanceForm.setValue({
       collaboratorId: 1,
       checkInTime: '2024-08-24T08:00',
@@ -74,21 +55,17 @@ describe('AttendanceFormComponent', () => {
     });
 
     component.onSubmit();
-    expect(component.onSubmit).toHaveBeenCalled();
     expect(mockAttendanceService.createAttendance).toHaveBeenCalled();
   });
 
-  it('deve chamar o serviço de atualização ao enviar um formulário de edição', () => {
-    spyOn(component, 'onSubmit');
-    component.attendanceId = 1;
+  it('não deve chamar o serviço de criação se o formulário for inválido', () => {
     component.attendanceForm.setValue({
-      collaboratorId: 1,
+      collaboratorId: '',  // Valor inválido
       checkInTime: '2024-08-24T08:00',
       checkOutTime: '2024-08-24T17:00'
     });
 
     component.onSubmit();
-    expect(component.onSubmit).toHaveBeenCalled();
-    expect(mockAttendanceService.updateAttendance).toHaveBeenCalled();
+    expect(mockAttendanceService.createAttendance).not.toHaveBeenCalled();
   });
 });
