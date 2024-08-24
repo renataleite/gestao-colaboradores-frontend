@@ -10,6 +10,7 @@ import { CollaboratorFormComponent } from './components/collaborator-form/collab
 import { CollaboratorListComponent } from './components/collaborator-list/collaborator-list.component';
 import { CollaboratorEditComponent } from './components/collaborator-edit/collaborator-edit.component';
 import { AttendanceFormComponent } from './components/attendance-form/attendance-form.component';
+import { CollaboratorReportComponent } from './components/collaborator-report/collaborator-report.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { AttendanceFormComponent } from './components/attendance-form/attendance
     CollaboratorListComponent,
     CollaboratorEditComponent,
     AttendanceFormComponent,
+    CollaboratorReportComponent,
   ],
   imports: [
     BrowserModule,

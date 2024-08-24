@@ -1,0 +1,35 @@
+<div class="max-w-4xl mx-auto p-6 my-5 bg-white shadow-lg rounded-lg">
+    <h2 class="text-xl font-semibold mb-4">Relatório de Colaboradores - {{ formatMonthYear(month, year) }}</h2>
+
+    <div *ngIf="collaborators.length === 0" class="text-center text-gray-500 mt-4">
+        Nenhum registro encontrado para o mês e ano fornecidos.
+    </div>
+
+    <table *ngIf="collaborators.length > 0" class="min-w-full bg-white">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">Nome</th>
+                <th class="py-2 px-4 border-b">Matrícula</th>
+                <th class="py-2 px-4 border-b">Cargo</th>
+                <th class="py-2 px-4 border-b">Salário</th>
+                <th class="py-2 px-4 border-b">Registros de Ponto</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let collaborator of collaborators">
+                <td class="py-2 px-4 border-b">{{ collaborator.name }}</td>
+                <td class="py-2 px-4 border-b">{{ collaborator.registrationNumber }}</td>
+                <td class="py-2 px-4 border-b">{{ collaborator.position }}</td>
+                <td class="py-2 px-4 border-b">{{ collaborator.salary | currency:'BRL' }}</td>
+                <td class="py-2 px-4 border-b">
+                    <ul>
+                        <li *ngFor="let attendance of collaborator.attendances">
+                            {{ attendance.date | date:'dd/MM/yyyy' }} - Entrada: {{ attendance.checkInTime |
+                            date:'HH:mm' }} - Saída: {{ attendance.checkOutTime | date:'HH:mm' }}
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
