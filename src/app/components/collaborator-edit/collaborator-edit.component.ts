@@ -47,7 +47,7 @@ export class CollaboratorEditComponent implements OnInit {
       this.collaboratorService.updateCollaborator(this.collaboratorId, updatedCollaborator).subscribe(
         () => {
           console.log('Colaborador atualizado com sucesso');
-          this.router.navigate(['/collaborators']);
+          this.router.navigate(['/colaboradores']);
         },
         error => console.error('Erro ao atualizar colaborador', error)
       );
