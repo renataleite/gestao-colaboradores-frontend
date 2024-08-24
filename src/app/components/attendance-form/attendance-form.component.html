@@ -1,0 +1,28 @@
+<div class="max-w-xl mx-auto p-6 my-5 bg-white shadow-lg rounded-lg">
+    <h2 class="text-xl font-semibold mb-4">{{ attendanceId ? 'Editar Registro de Ponto' : 'Adicionar Registro de Ponto'
+        }}</h2>
+    <form [formGroup]="attendanceForm" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+            <label for="collaboratorId" class="block text-gray-700 font-medium mb-2">ID do Colaborador</label>
+            <input id="collaboratorId" formControlName="collaboratorId" type="number"
+                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div class="mb-4">
+            <label for="checkInTime" class="block text-gray-700 font-medium mb-2">Horário de Entrada</label>
+            <input id="checkInTime" formControlName="checkInTime" type="datetime-local"
+                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div class="mb-4">
+            <label for="checkOutTime" class="block text-gray-700 font-medium mb-2">Horário de Saída</label>
+            <input id="checkOutTime" formControlName="checkOutTime" type="datetime-local"
+                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button type="submit" [disabled]="attendanceForm.invalid"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+            {{ attendanceId ? 'Atualizar' : 'Cadastrar' }}
+        </button>
+    </form>
+</div>
