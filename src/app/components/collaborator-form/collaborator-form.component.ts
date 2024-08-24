@@ -34,7 +34,7 @@ export class CollaboratorFormComponent implements OnInit {
       this.collaboratorService.createCollaborator(newCollaborator).subscribe({
         next: (response) => {
           console.log('Colaborador cadastrado com sucesso!', response);
-          this.router.navigate(['/collaborator-list']);
+          this.router.navigate(['/collaborators']);
         },
         error: (err) => {
           console.error('Erro ao cadastrar colaborador:', err);

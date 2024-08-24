@@ -7,11 +7,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CollaboratorFormComponent } from './components/collaborator-form/collaborator-form.component';
+import { CollaboratorListComponent } from './components/collaborator-list/collaborator-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CollaboratorFormComponent,
+    CollaboratorListComponent,
   ],
   imports: [
     BrowserModule,

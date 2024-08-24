@@ -1,0 +1,29 @@
+<div class="max-w-4xl mx-auto p-6 my-5 bg-white shadow-lg rounded-lg">
+    <h2 class="text-xl font-semibold mb-4">Lista de Colaboradores</h2>
+    
+    <table class="min-w-full bg-white">
+      <thead>
+        <tr>
+          <th class="py-2 px-4 border-b">ID</th>
+          <th class="py-2 px-4 border-b">Nome</th>
+          <th class="py-2 px-4 border-b">Matrícula</th>
+          <th class="py-2 px-4 border-b">Cargo</th>
+          <th class="py-2 px-4 border-b">Salário</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let collaborator of collaborators">
+          <td class="py-2 px-4 border-b">{{ collaborator.id }}</td>
+          <td class="py-2 px-4 border-b">{{ collaborator.name }}</td>
+          <td class="py-2 px-4 border-b">{{ collaborator.registrationNumber }}</td>
+          <td class="py-2 px-4 border-b">{{ collaborator.position }}</td>
+          <td class="py-2 px-4 border-b">{{ collaborator.salary | currency:'BRL' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="collaborators.length === 0" class="text-center text-gray-500 mt-4">
+      Nenhum colaborador encontrado.
+    </div>
+  </div>
+  
