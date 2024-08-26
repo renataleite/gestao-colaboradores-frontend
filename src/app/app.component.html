@@ -1,1 +1,6 @@
-<router-outlet></router-outlet>
+<div class="flex">
+    <app-sidebar></app-sidebar>
+    <div class="ml-64 p-6 flex-1 bg-white"> <!-- Compensação da largura da sidebar -->
+        <router-outlet></router-outlet> <!-- Onde os componentes são carregados -->
+    </div>
+</div>

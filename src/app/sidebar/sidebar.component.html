@@ -1,0 +1,20 @@
+<div class="sidebar bg-blue-600 text-white h-full p-4 fixed w-72">
+    <h2 class="text-2xl font-bold mb-4">Gestão Colaboradores</h2>
+    <ul class="space-y-2">
+        <li>
+            <a routerLink="/colaboradores" routerLinkActive="bg-blue-700 font-semibold"
+                [routerLinkActiveOptions]="{ exact: true }"
+                class="flex items-center py-2 px-4 rounded hover:bg-blue-700">
+                <span class="material-icons mr-2">group</span>
+                Colaboradores
+            </a>
+        </li>
+        <li>
+            <a routerLink="/lista-de-pontos" routerLinkActive="bg-blue-700 font-semibold"
+                class="flex items-center py-2 px-4 rounded hover:bg-blue-700">
+                <span class="material-icons mr-2">schedule</span>
+                Registro de pontos
+            </a>
+        </li>
+    </ul>
+</div>
