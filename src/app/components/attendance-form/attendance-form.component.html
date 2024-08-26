@@ -2,38 +2,59 @@
     <h2 class="text-xl font-semibold mb-4">Adicionar Registro de Ponto</h2>
     <form [formGroup]="attendanceForm" (ngSubmit)="onSubmit()">
         <div class="mb-4">
-            <label for="collaboratorId" class="block text-gray-700 font-medium mb-2">ID do Colaborador</label>
-            <input id="collaboratorId" formControlName="collaboratorId" type="number"
-                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <div *ngIf="attendanceForm.get('collaboratorId')?.invalid && attendanceForm.get('collaboratorId')?.touched"
+            <label for="collaboratorId" class="block text-gray-700 font-medium mb-2">Nome do Colaborador</label>
+            <select id="collaboratorId" formControlName="collaboratorId"
+                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="">Selecione um colaborador</option>
+                <option *ngFor="let collaborator of collaborators" [value]="collaborator.id">
+                    {{ collaborator.name }}
+                </option>
+            </select>
+            <div *ngIf="attendanceForm.get('collaboratorId')?.hasError('required') && (attendanceForm.get('collaboratorId')?.touched || attendanceForm.get('collaboratorId')?.dirty)"
                 class="text-red-500 text-sm mt-1">
-                ID do Colaborador é obrigatório.
+                O nome do colaborador é obrigatório.
             </div>
         </div>
-
+        <div class="mb-4">
+            <label for="attendanceDate" class="block text-gray-700 font-medium mb-2">Data</label>
+            <input id="attendanceDate" formControlName="attendanceDate" type="date"
+                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                [min]="minDate" [max]="maxDate" (change)="onDateChange($event)" />
+            <div *ngIf="attendanceForm.get('attendanceDate')?.invalid && attendanceForm.get('attendanceDate')?.touched"
+                class="text-red-500 text-sm mt-1">
+                A data é obrigatória e deve ser um dia útil.
+            </div>
+        </div>
         <div class="mb-4">
             <label for="checkInTime" class="block text-gray-700 font-medium mb-2">Horário de Entrada</label>
-            <input id="checkInTime" formControlName="checkInTime" type="datetime-local"
-                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input id="checkInTime" formControlName="checkInTime" type="time"
+                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                [ngClass]="{'text-red-500': !isValidTime(attendanceForm.get('checkInTime')?.value)}" />
             <div *ngIf="attendanceForm.get('checkInTime')?.invalid && attendanceForm.get('checkInTime')?.touched"
                 class="text-red-500 text-sm mt-1">
                 Horário de Entrada é obrigatório.
             </div>
         </div>
-
         <div class="mb-4">
             <label for="checkOutTime" class="block text-gray-700 font-medium mb-2">Horário de Saída</label>
-            <input id="checkOutTime" formControlName="checkOutTime" type="datetime-local"
-                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <input id="checkOutTime" formControlName="checkOutTime" type="time"
+                class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                [ngClass]="{'text-red-500': !isValidTime(attendanceForm.get('checkOutTime')?.value)}" />
             <div *ngIf="attendanceForm.get('checkOutTime')?.invalid && attendanceForm.get('checkOutTime')?.touched"
                 class="text-red-500 text-sm mt-1">
                 Horário de Saída é obrigatório.
             </div>
         </div>
 
-        <button type="submit" [disabled]="attendanceForm.invalid"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-            Cadastrar
-        </button>
+        <div class="flex justify-between">
+            <button type="button" (click)="onBack()"
+                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-48">
+                Voltar
+            </button>
+            <button type="submit" [disabled]="attendanceForm.invalid"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-48">
+                Cadastrar
+            </button>
+        </div>
     </form>
 </div>
