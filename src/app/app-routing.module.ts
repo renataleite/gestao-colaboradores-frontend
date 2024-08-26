@@ -4,15 +4,15 @@ import { CollaboratorListComponent } from './components/collaborator-list/collab
 import { CollaboratorFormComponent } from './components/collaborator-form/collaborator-form.component';
 import { AttendanceFormComponent } from './components/attendance-form/attendance-form.component';
 import { CollaboratorEditComponent } from './components/collaborator-edit/collaborator-edit.component';
-import { CollaboratorReportComponent } from './components/collaborator-report/collaborator-report.component';
+import { AttendanceListComponent } from './components/attendance-list/attendance-list.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/colaboradores', pathMatch: 'full' },
+  { path: '', component: CollaboratorListComponent }, 
   { path: 'colaboradores', component: CollaboratorListComponent },
   { path: 'cadastrar-colaboradores', component: CollaboratorFormComponent },
   { path: 'editar-colaboradores/:id', component: CollaboratorEditComponent },
-  { path: 'cadastrar-registro-ponto', component: AttendanceFormComponent },
-  { path: 'relatorio', component: CollaboratorReportComponent },
+  { path: 'registrar-ponto', component: AttendanceFormComponent },
+  { path: 'lista-de-pontos', component: AttendanceListComponent },
 ];
 
 @NgModule({
