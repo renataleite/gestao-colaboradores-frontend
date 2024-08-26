@@ -1,6 +1,15 @@
 export interface Attendance {
   id?: number;
   collaboratorId: number;
-  checkInTime: Date; 
-  checkOutTime: Date;
+  collaborator?: Collaborator;
+  checkInTime: string; 
+  checkOutTime: string;
+}
+
+export interface Collaborator {
+  id: number;
+  name: string;
+  position: string;
+  registrationNumber: string;
+  salary: number;
 }
