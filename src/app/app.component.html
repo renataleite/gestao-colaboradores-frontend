@@ -1,6 +1,15 @@
-<div class="flex">
-    <app-sidebar></app-sidebar>
-    <div class="ml-64 p-6 flex-1 bg-white"> <!-- Compensação da largura da sidebar -->
-        <router-outlet></router-outlet> <!-- Onde os componentes são carregados -->
+<div class="flex flex-col md:flex-row">
+    <div class="md:hidden bg-blue-600 text-white p-4 flex justify-between items-center">
+        <h2 class="text-2xl font-bold">Gestão Colaboradores</h2>
+        <button (click)="isSidebarOpen = !isSidebarOpen" class="text-white">
+            <span class="material-icons">menu</span>
+        </button>
+    </div>
+
+    <app-sidebar [ngClass]="{'hidden': !isSidebarOpen, 'block': isSidebarOpen, 'md:block': true}"
+        class="md:fixed md:left-0 md:top-0 md:bottom-0 md:w-72 z-10 bg-blue-600"></app-sidebar>
+
+    <div class="flex-1 p-6 bg-white md:ml-72">
+        <router-outlet></router-outlet>
     </div>
 </div>
