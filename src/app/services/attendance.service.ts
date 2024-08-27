@@ -8,7 +8,7 @@ import { Attendance } from '../models/attendance.models';
 })
 export class AttendanceService {
 
-  private apiUrl = 'https://localhost:7094/api/Attendances';
+  private apiUrl = 'https://gestaocolaboradoresapi-a7ckf8duawcca2gv.eastus-01.azurewebsites.net/api/Attendances';
 
   constructor(private http: HttpClient) { }
 

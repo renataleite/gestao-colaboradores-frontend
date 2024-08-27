@@ -7,7 +7,7 @@ import { Collaborator } from '../models/collaborator.model';
   providedIn: 'root'
 })
 export class CollaboratorService {
-  private apiUrl = 'https://localhost:7094/api/Collaborators';
+  private apiUrl = 'https://gestaocolaboradoresapi-a7ckf8duawcca2gv.eastus-01.azurewebsites.net/api/Collaborators';
 
   constructor(private http: HttpClient) {}
 
