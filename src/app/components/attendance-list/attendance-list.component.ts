@@ -15,6 +15,8 @@ export class AttendanceListComponent implements OnInit {
   filteredAttendances: Attendance[] = [];
   filterYear: string = ''; 
   filterMonth: string = ''; 
+  isLoading: boolean = false;
+  isDownloadingExcel: boolean = false;
 
   constructor(private attendanceService: AttendanceService) {}
 
@@ -23,38 +25,65 @@ export class AttendanceListComponent implements OnInit {
   }
 
   loadAllAttendances(): void {
-    this.attendanceService.getAttendances().subscribe(attendances => {
-      console.log('Attendances:', attendances);
-      this.attendances = attendances;
-      this.filteredAttendances = attendances;
-    });
+    this.isLoading = true;
+    this.attendanceService.getAttendances().subscribe(
+      attendances => {
+        console.log('Attendances:', attendances);
+        this.attendances = attendances;
+        this.filteredAttendances = attendances;
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Erro ao carregar registros de ponto', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   onMonthFilter(): void {
     if (this.filterMonth) {
       const [year, month] = this.filterMonth.split('-');
-      this.attendanceService.getAttendancesByMonth(year, month).subscribe(filteredAttendances => {
-        this.filteredAttendances = filteredAttendances;
-      });
+      this.isLoading = true;
+      this.attendanceService.getAttendancesByMonth(year, month).subscribe(
+        filteredAttendances => {
+          this.filteredAttendances = filteredAttendances;
+          this.isLoading = false;
+        },
+        error => {
+          console.error('Erro ao filtrar registros de ponto', error);
+          this.isLoading = false;
+        }
+      );
     } else {
       this.loadAllAttendances();
     }
   }
 
   downloadExcel(): void {
+    this.isDownloadingExcel = true;
     if (this.filterMonth) {
       const [year, month] = this.filterMonth.split('-');
-      this.attendanceService.downloadAttendancesExcel(year, month).subscribe((response: Blob) => {
-        this.saveAsExcelFile(response, `AttendanceReport-${year}-${month}`);
-      }, error => {
-        console.error('Erro ao baixar o relatório Excel', error);
-      });
+      this.attendanceService.downloadAttendancesExcel(year, month).subscribe(
+        (response: Blob) => {
+          this.saveAsExcelFile(response, `AttendanceReport-${year}-${month}`);
+          this.isDownloadingExcel = false;
+        },
+        error => {
+          console.error('Erro ao baixar o relatório Excel', error);
+          this.isDownloadingExcel = false;
+        }
+      );
     } else {
-      this.attendanceService.downloadAttendancesExcel().subscribe((response: Blob) => {
-        this.saveAsExcelFile(response, `AttendanceReport`);
-      }, error => {
-        console.error('Erro ao baixar o relatório Excel', error);
-      });
+      this.attendanceService.downloadAttendancesExcel().subscribe(
+        (response: Blob) => {
+          this.saveAsExcelFile(response, `AttendanceReport`);
+          this.isDownloadingExcel = false;
+        },
+        error => {
+          console.error('Erro ao baixar o relatório Excel', error);
+          this.isDownloadingExcel = false;
+        }
+      );
     }
   }
 

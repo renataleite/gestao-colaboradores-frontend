@@ -14,9 +14,12 @@
 
         <div class="flex space-x-4">
             <button (click)="downloadExcel()"
-                class="flex items-center text-sm bg-green-500 hover:bg-green-700 text-white font-semibold p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500">
-                <span class="material-icons text-md text-sm mr-2">file_download</span>
-                Baixar relatório
+                class="flex items-center text-sm bg-green-500 hover:bg-green-700 text-white font-semibold p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+                [disabled]="isDownloadingExcel">
+                <span *ngIf="isDownloadingExcel" class="material-icons animate-spin mr-2">autorenew</span>
+                <span *ngIf="!isDownloadingExcel" class="material-icons text-md mr-2">file_download</span>
+                <ng-container *ngIf="!isDownloadingExcel">Baixar relatório</ng-container>
+                <ng-container *ngIf="isDownloadingExcel">Baixando...</ng-container>
             </button>
         </div>
     </div>
@@ -27,7 +30,8 @@
                 <tr class="bg-gray-100">
                     <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-medium text-gray-700">
                         Colaborador</th>
-                    <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-medium text-gray-700">Data</th>
+                    <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-medium text-gray-700">Data
+                    </th>
                     <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-medium text-gray-700">Entrada
                     </th>
                     <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-medium text-gray-700">Saída
@@ -35,27 +39,33 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let attendance of filteredAttendances">
-                    <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-                        {{ attendance.collaborator?.name }}
-                    </td>
-                    <!-- Nova coluna para a data -->
-                    <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-                        {{ attendance.checkInTime | date:'dd/MM/yyyy' }}
-                    </td>
-                    <!-- Coluna para o horário de entrada -->
-                    <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-                        {{ attendance.checkInTime | date:'HH:mm' }}
-                    </td>
-                    <!-- Coluna para o horário de saída -->
-                    <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-                        {{ attendance.checkOutTime | date:'HH:mm' }}
-                    </td>
+                <tr *ngIf="isLoading">
+                    <td colspan="4" class="text-center py-4 text-gray-500">Carregando...</td>
                 </tr>
+
+                <ng-container *ngIf="!isLoading">
+                    <tr *ngFor="let attendance of filteredAttendances">
+                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
+                            {{ attendance.collaborator?.name }}
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
+                            {{ attendance.checkInTime | date:'dd/MM/yyyy' }}
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
+                            {{ attendance.checkInTime | date:'HH:mm' }}
+                        </td>
+                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
+                            {{ attendance.checkOutTime | date:'HH:mm' }}
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="filteredAttendances.length === 0">
+                        <td colspan="4" class="text-center text-gray-500 py-4">
+                            Nenhum registro de pontos para esse mês.
+                        </td>
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
-        <div *ngIf="filteredAttendances.length === 0" class="text-center text-gray-500 mt-4">
-            Nenhum registro de pontos para esse mês.
-        </div>
     </div>
 </div>
