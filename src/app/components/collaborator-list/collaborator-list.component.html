@@ -1,50 +1,56 @@
 <div class="max-w-4xl mx-auto p-6 my-5 bg-white shadow-lg rounded-lg">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold">Lista de Colaboradores</h2>
-        <button [routerLink]="['/cadastrar-colaboradores']"
-            class="bg-blue-500 hover:bg-blue-700 text-sm text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            + Cadastrar Colaborador
-        </button>
+    <div *ngIf="isLoading" class="text-center text-gray-500">
+        Carregando...
     </div>
 
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b">ID</th>
-                    <th class="py-2 px-4 border-b">Nome</th>
-                    <th class="py-2 px-4 border-b">Matrícula</th>
-                    <th class="py-2 px-4 border-b">Cargo</th>
-                    <th class="py-2 px-4 border-b">Salário</th>
-                    <th class="py-2 px-4 border-b">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let collaborator of collaborators">
-                    <td class="py-2 px-4 border-b text-center">{{ collaborator.id }}</td>
-                    <td class="py-2 px-4 border-b text-center">{{ collaborator.name }}</td>
-                    <td class="py-2 px-4 border-b text-center">{{ collaborator.registrationNumber }}</td>
-                    <td class="py-2 px-4 border-b text-center">{{ collaborator.position }}</td>
-                    <td class="py-2 px-4 border-b text-center">{{ collaborator.salary | currency:'BRL' }}</td>
-                    <td class="py-2 px-4 border-b flex space-x-2 justify-center">
-                        <!-- Ícone de Editar -->
-                        <a [routerLink]="['/editar-colaboradores', collaborator.id]"
-                            class="text-blue-500 hover:text-blue-700">
-                            <span class="material-icons">edit</span>
-                        </a>
-                        <!-- Ícone de Deletar -->
-                        <a (click)="openDeleteModal(collaborator)"
-                            class="text-red-500 hover:text-red-700 cursor-pointer">
-                            <span class="material-icons">delete</span>
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <div *ngIf="!isLoading">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">Lista de Colaboradores</h2>
+            <button [routerLink]="['/cadastrar-colaboradores']"
+                class="bg-blue-500 hover:bg-blue-700 text-sm text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                + Cadastrar Colaborador
+            </button>
+        </div>
 
-    <div *ngIf="collaborators.length === 0" class="text-center text-gray-500 mt-4">
-        Nenhum colaborador encontrado.
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b">ID</th>
+                        <th class="py-2 px-4 border-b">Nome</th>
+                        <th class="py-2 px-4 border-b">Matrícula</th>
+                        <th class="py-2 px-4 border-b">Cargo</th>
+                        <th class="py-2 px-4 border-b">Salário</th>
+                        <th class="py-2 px-4 border-b">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let collaborator of collaborators">
+                        <td class="py-2 px-4 border-b text-center">{{ collaborator.id }}</td>
+                        <td class="py-2 px-4 border-b text-center">{{ collaborator.name }}</td>
+                        <td class="py-2 px-4 border-b text-center">{{ collaborator.registrationNumber }}</td>
+                        <td class="py-2 px-4 border-b text-center">{{ collaborator.position }}</td>
+                        <td class="py-2 px-4 border-b text-center">{{ collaborator.salary | currency:'BRL' }}</td>
+                        <td class="py-2 px-4 border-b flex space-x-2 justify-center">
+                            <!-- Ícone de Editar -->
+                            <a [routerLink]="['/editar-colaboradores', collaborator.id]"
+                                class="text-blue-500 hover:text-blue-700">
+                                <span class="material-icons">edit</span>
+                            </a>
+                            <!-- Ícone de Deletar -->
+                            <a (click)="openDeleteModal(collaborator)"
+                                class="text-red-500 hover:text-red-700 cursor-pointer">
+                                <span class="material-icons">delete</span>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="collaborators.length === 0" class="text-center text-gray-500 mt-4">
+            Nenhum colaborador encontrado.
+        </div>
     </div>
 
     <!-- Modal de Confirmação de Deleção -->

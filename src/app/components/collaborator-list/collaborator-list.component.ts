@@ -11,6 +11,7 @@ export class CollaboratorListComponent implements OnInit {
   collaborators: Collaborator[] = [];
   showDeleteModal: boolean = false;
   collaboratorToDelete: Collaborator | null = null;
+  isLoading: boolean = false;
 
   constructor(private collaboratorService: CollaboratorService) { }
 
@@ -19,9 +20,16 @@ export class CollaboratorListComponent implements OnInit {
   }
 
   loadCollaborators(): void {
+    this.isLoading = true;
     this.collaboratorService.getCollaborators().subscribe(
-      (data: Collaborator[]) => this.collaborators = data,
-      error => console.error('Erro ao carregar colaboradores', error)
+      (data: Collaborator[]) => {
+        this.collaborators = data;
+        this.isLoading = false;
+      },
+      error => {
+        console.error('Erro ao carregar colaboradores', error);
+        this.isLoading = false;
+      }
     );
   }
 
@@ -37,13 +45,18 @@ export class CollaboratorListComponent implements OnInit {
 
   confirmDelete(): void {
     if (this.collaboratorToDelete) {
+      this.isLoading = true;
       this.collaboratorService.deleteCollaborator(this.collaboratorToDelete.id).subscribe(
         () => {
           console.log('Colaborador deletado com sucesso');
           this.collaborators = this.collaborators.filter(c => c.id !== this.collaboratorToDelete?.id);
           this.closeDeleteModal();
+          this.isLoading = false;
         },
-        error => console.error('Erro ao deletar colaborador', error)
+        error => {
+          console.error('Erro ao deletar colaborador', error);
+          this.isLoading = false;
+        }
       );
     }
   }
