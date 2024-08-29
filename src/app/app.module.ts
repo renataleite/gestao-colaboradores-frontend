@@ -1,7 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'; // Importar HttpClientModule
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Necessário para o MatSnackBar
+import { MatSnackBarModule } from '@angular/material/snack-bar'; // Importa o MatSnackBarModule
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +14,7 @@ import { AttendanceFormComponent } from './components/attendance-form/attendance
 import { CollaboratorReportComponent } from './components/collaborator-report/collaborator-report.component';
 import { AttendanceListComponent } from './components/attendance-list/attendance-list.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

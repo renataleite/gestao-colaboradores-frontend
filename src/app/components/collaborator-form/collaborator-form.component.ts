@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CollaboratorService } from '../../services/collaborator.service';
 import { Router } from '@angular/router';
 import { Collaborator } from 'src/app/models/collaborator.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-collaborator-form',
@@ -15,7 +16,8 @@ export class CollaboratorFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private collaboratorService: CollaboratorService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.collaboratorForm = this.fb.group({
       name: ['', Validators.required],
@@ -34,10 +36,20 @@ export class CollaboratorFormComponent implements OnInit {
       this.collaboratorService.createCollaborator(newCollaborator).subscribe({
         next: (response) => {
           console.log('Colaborador cadastrado com sucesso!', response);
+          this.snackBar.open('Colaborador cadastrado com sucesso!', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
           this.router.navigate(['/colaboradores']);
         },
         error: (err) => {
           console.error('Erro ao cadastrar colaborador:', err);
+          this.snackBar.open('Erro ao cadastrar colaborador. Tente novamente.', '', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'right'
+          });
         }
       });
     }
