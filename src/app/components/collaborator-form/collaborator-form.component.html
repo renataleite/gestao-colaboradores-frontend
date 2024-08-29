@@ -3,7 +3,7 @@
   <form [formGroup]="collaboratorForm" (ngSubmit)="onSubmit()">
     <div class="mb-4">
       <label for="name" class="block text-gray-700 font-medium mb-2">Nome</label>
-      <input id="name" formControlName="name" type="text"
+      <input id="name" formControlName="name" type="text" placeholder="Digite o nome do colaborador"
         class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <div *ngIf="collaboratorForm.get('name')?.invalid && collaboratorForm.get('name')?.touched"
         class="text-red-500 text-sm mt-1">
@@ -13,7 +13,7 @@
 
     <div class="mb-4">
       <label for="registrationNumber" class="block text-gray-700 font-medium mb-2">Matrícula</label>
-      <input id="registrationNumber" formControlName="registrationNumber" type="text"
+      <input id="registrationNumber" formControlName="registrationNumber" type="text" placeholder="Digite a matrícula"
         class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <div
         *ngIf="collaboratorForm.get('registrationNumber')?.invalid && collaboratorForm.get('registrationNumber')?.touched"
@@ -24,7 +24,7 @@
 
     <div class="mb-4">
       <label for="position" class="block text-gray-700 font-medium mb-2">Cargo</label>
-      <input id="position" formControlName="position" type="text"
+      <input id="position" formControlName="position" type="text" placeholder="Digite o cargo"
         class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <div *ngIf="collaboratorForm.get('position')?.invalid && collaboratorForm.get('position')?.touched"
         class="text-red-500 text-sm mt-1">
@@ -34,7 +34,7 @@
 
     <div class="mb-4">
       <label for="salary" class="block text-gray-700 font-medium mb-2">Salário</label>
-      <input id="salary" formControlName="salary" type="number"
+      <input id="salary" formControlName="salary" type="number" placeholder="Digite o salário"
         class="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500" />
       <div *ngIf="collaboratorForm.get('salary')?.invalid && collaboratorForm.get('salary')?.touched"
         class="text-red-500 text-sm mt-1">
