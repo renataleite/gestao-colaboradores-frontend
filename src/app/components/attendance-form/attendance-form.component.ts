@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -14,8 +14,6 @@ import { Collaborator } from 'src/app/models/collaborator.model';
 export class AttendanceFormComponent implements OnInit {
   attendanceForm: FormGroup;
   collaborators: Collaborator[] = [];
-  minDate: string;
-  maxDate: string;
 
   constructor(
     private fb: FormBuilder,
@@ -24,12 +22,9 @@ export class AttendanceFormComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar 
   ) {
-    const today = new Date();
-    this.minDate = this.formatDate(today);
-    this.maxDate = this.formatDate(this.addDays(today, 30)); // Limite de 30 dias a partir de hoje
     this.attendanceForm = this.fb.group({
       collaboratorId: ['', Validators.required],
-      attendanceDate: [this.minDate, Validators.required],
+      attendanceDate: ['', Validators.required],
       checkInTime: ['08:00', Validators.required],
       checkOutTime: ['18:00', Validators.required]
     });
@@ -70,7 +65,6 @@ export class AttendanceFormComponent implements OnInit {
         verticalPosition: 'top',
         horizontalPosition: 'right'
       });
-      
     });
   }
 
@@ -99,9 +93,5 @@ export class AttendanceFormComponent implements OnInit {
   
   onBack(): void {
     this.router.navigate(['/lista-de-pontos']);
-  }
-  
-  isValidTime(time: string): boolean {
-    return time >= '08:00' && time <= '18:00';
   }
 }
