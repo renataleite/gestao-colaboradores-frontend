@@ -41,6 +41,12 @@ export class AttendanceFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.attendanceForm.invalid) {
+      this.attendanceForm.markAllAsTouched();
+      console.log('Form is invalid after markAllAsTouched. Errors:', this.attendanceForm.errors); // Log para verificar os erros do formulário após marcar todos como "tocados"
+      return;
+    }
+
     const formValues = this.attendanceForm.value;
     const checkInTime = `${formValues.attendanceDate}T${formValues.checkInTime}`;
     const checkOutTime = `${formValues.attendanceDate}T${formValues.checkOutTime}`;

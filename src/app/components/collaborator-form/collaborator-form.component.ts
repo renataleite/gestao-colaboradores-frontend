@@ -30,28 +30,33 @@ export class CollaboratorFormComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    if (this.collaboratorForm.valid) {
-      const newCollaborator: Collaborator = this.collaboratorForm.value;
-
-      this.collaboratorService.createCollaborator(newCollaborator).subscribe({
-        next: (response) => {
-          console.log('Colaborador cadastrado com sucesso!', response);
-          this.snackBar.open('Colaborador cadastrado com sucesso!', '', {
-            duration: 3000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right'
-          });
-          this.router.navigate(['/colaboradores']);
-        },
-        error: (err) => {
-          console.error('Erro ao cadastrar colaborador:', err);
-          this.snackBar.open('Erro ao cadastrar colaborador. Tente novamente.', '', {
-            duration: 3000,
-            verticalPosition: 'top',
-            horizontalPosition: 'right'
-          });
-        }
-      });
+    if (this.collaboratorForm.invalid) {
+      this.collaboratorForm.markAllAsTouched();
+      console.log('Form is invalid after markAllAsTouched. Errors:', this.collaboratorForm.errors);
+      return;
     }
+  
+    const newCollaborator: Collaborator = this.collaboratorForm.value;
+  
+    this.collaboratorService.createCollaborator(newCollaborator).subscribe({
+      next: (response) => {
+        console.log('Colaborador cadastrado com sucesso!', response);
+        this.snackBar.open('Colaborador cadastrado com sucesso!', '', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+        this.router.navigate(['/colaboradores']);
+      },
+      error: (err) => {
+        console.error('Erro ao cadastrar colaborador:', err);
+        this.snackBar.open('Erro ao cadastrar colaborador. Tente novamente.', '', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'right'
+        });
+      }
+    });
   }
+  
 }
