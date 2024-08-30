@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { Attendance } from '../models/attendance.models';
+import { environment } from 'enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
 
-  private apiUrl = 'https://gestaocolaboradoresapi-a7ckf8duawcca2gv.eastus-01.azurewebsites.net/api/Attendances';
+  private apiUrl = `${environment.apiUrl}/Attendances`;
 
   constructor(private http: HttpClient) { }
 

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Collaborator } from '../models/collaborator.model';
+import { environment } from 'enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CollaboratorService {
-  private apiUrl = 'https://gestaocolaboradoresapi-a7ckf8duawcca2gv.eastus-01.azurewebsites.net/api/Collaborators';
+  private apiUrl = `${environment.apiUrl}/Collaborators`;
 
   constructor(private http: HttpClient) {}
 
