@@ -2,6 +2,10 @@
 
 Este é o projeto frontend desenvolvido em Angular para o sistema de gestão de colaboradores. O sistema permite gerenciar informações de colaboradores e registros de frequência, integrando-se com um backend ASP.NET Core para fornecer uma aplicação completa de gerenciamento.
 
+## Arquitetura Utilizada
+
+O projeto frontend utiliza uma **arquitetura baseada em componentes e serviços**, que é a abordagem recomendada para o desenvolvimento de aplicações Angular modernas.
+
 ## Estrutura do Projeto
 
 O projeto está estruturado da seguinte forma:
@@ -9,7 +13,6 @@ O projeto está estruturado da seguinte forma:
 - **src/app/components**: Contém os componentes Angular que representam as diferentes partes da aplicação, como formulários de colaboradores, listas, e relatórios.
 - **src/app/models**: Contém os modelos TypeScript que definem a estrutura dos dados usados na aplicação.
 - **src/app/services**: Contém os serviços Angular que são responsáveis por interagir com o backend via HTTP e fornecer dados para os componentes.
-- **src/app/sidebar**: Contém o componente da barra lateral que é usado para navegação.
 
 ## Funcionalidades
 
